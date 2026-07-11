@@ -1,4 +1,4 @@
+Plaintext
 streamlit
-astropy
 numpy
-pillow
+matplotlib
