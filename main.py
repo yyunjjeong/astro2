@@ -14,8 +14,8 @@ st.sidebar.info(
     1. **주기-광도 관계 (P-L Relation):** 세페이드 변광성은 변광 주기($P$)가 길수록 절대 등급($M$)이 밝아집니다(오차가 없는 기본 법칙).
     
     2. **금속 함량(집단)에 따른 차이:**
-       - **Ⅰ족 항성 (젊고 금속 풍부):** 더 밝음 ($M = -2.8 \log P - 1.4$)
-       - **Ⅱ족 항성 (늙고 금속 부족):** 더 어두움 ($M = -2.8 \log P + 0.1$)
+       - **Ⅰ족 항성 (젊고 금속 풍부):** 더 밝음 ($M = -2.8 \\log P - 1.4$)
+       - **Ⅱ족 항성 (늙고 금속 부족):** 더 어두움 ($M = -2.8 \\log P + 0.1$)
        ※ 금속 함량을 잘못 알면 거리가 완전히 다르게 계산됩니다!
     
     3. **성간 소광 ($A$):**
@@ -50,42 +50,4 @@ with col2:
     user_extinction = st.slider(
         "2. 성간 소광량 보정치 (A)",
         min_value=0.0, max_value=2.0, value=0.0, step=0.1,
-        help="성간 티끌에 의해 빛이 가려진 양을 입력하여 보정합니다."
-    )
-
-with col3:
-    user_distance_kpc = st.slider(
-        "3. 예측할 은하까지의 거리 (kpc)",
-        min_value=1.0, max_value=30.0, value=5.0, step=0.1,
-        help="슬라이더를 움직여 이론선이 관측 데이터 점들 가운데에 오도록 맞추세요."
-    )
-
-# --- 5. 사용자가 입력한 조건에 따른 이론적 겉보기 등급 계산 ---
-line_log_P = np.linspace(0.3, 2.0, 100)
-
-if "Ⅰ족" in user_pop:
-    M_theory = -2.8 * line_log_P - 1.4
-else:
-    M_theory = -2.8 * line_log_P + 0.1
-
-user_distance_pc = user_distance_kpc * 1000
-m_theory = M_theory + 5 * np.log10(user_distance_pc) - 5 + user_extinction
-
-# --- 6. 그래프 시각화 (한글 깨짐 방지를 위해 영문 라벨로 적용) ---
-fig, ax = plt.subplots(figsize=(10, 4))
-
-# 관측 데이터 점 찍기
-ax.scatter(true_log_P, m_obs, color="blue", alpha=0.7, label="Observed Cepheid Data (Galaxy X)")
-# 사용자의 이론선 그리기
-ax.plot(line_log_P, m_theory, color="red", linewidth=2.5, label="Theoretical P-L Model Line")
-
-# Y축 반전 (등급은 작을수록 밝으므로 지학2 핵심 원리 반영)
-ax.invert_yaxis()
-
-# 영문 라벨 적용
-ax.set_xlabel("Pulsation Period (log P [days])", fontsize=12)
-ax.set_ylabel("Apparent Magnitude (m)", fontsize=12)
-ax.set_title("Cepheid Variable Period-Luminosity Relation Fitting", fontsize=14, fontweight='bold')
-ax.grid(True, linestyle="--", alpha=0.5)  # <--- 이 줄 끝에 ", alpha=0.5) 가 잘 닫혀있는지 확인!
-
-st.pyplot(fig)
+        help="성간 티끌에 의해 빛이
