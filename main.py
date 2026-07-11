@@ -86,4 +86,6 @@ ax.invert_yaxis()
 ax.set_xlabel("Pulsation Period (log P [days])", fontsize=12)
 ax.set_ylabel("Apparent Magnitude (m)", fontsize=12)
 ax.set_title("Cepheid Variable Period-Luminosity Relation Fitting", fontsize=14, fontweight='bold')
-ax.grid(True, linestyle="--
+ax.grid(True, linestyle="--", alpha=0.5)  # <--- 이 줄 끝에 ", alpha=0.5) 가 잘 닫혀있는지 확인!
+
+st.pyplot(fig)
