@@ -142,7 +142,7 @@ with out_col1:
     st.write(f"• 계산된 은하의 거리: **{user_distance_kpc} kpc** (약 {user_distance_kpc * 3260:,.0f} 광년)")
 
 with out_col2:
-    st.markdown("### 🚨 오차 분석 (지구과학Ⅰ 탐구와의 연계)")
+    st.markdown("### 🚨 오차 분석 ")
     
     # [오차 원인 1]
     if "Ⅰ족" in user_pop:
