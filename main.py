@@ -72,7 +72,7 @@ user_distance_pc = user_distance_kpc * 1000
 m_theory = M_theory + 5 * np.log10(user_distance_pc) - 5 + user_extinction
 
 # --- 6. 그래프 시각화 (한글 깨짐 방지를 위해 영문 라벨로 적용) ---
-fig, ax = plt.subplots(figsize=(10, 5))
+fig, ax = plt.subplots(figsize=(10, 4))
 
 # 관측 데이터 점 찍기
 ax.scatter(true_log_P, m_obs, color="blue", alpha=0.7, label="Observed Cepheid Data (Galaxy X)")
@@ -82,44 +82,8 @@ ax.plot(line_log_P, m_theory, color="red", linewidth=2.5, label="Theoretical P-L
 # Y축 반전 (등급은 작을수록 밝으므로 지학2 핵심 원리 반영)
 ax.invert_yaxis()
 
-# 영문 라벨 적용으로 깨짐 문제 해결 및 전문성 향상
+# 영문 라벨 적용
 ax.set_xlabel("Pulsation Period (log P [days])", fontsize=12)
 ax.set_ylabel("Apparent Magnitude (m)", fontsize=12)
 ax.set_title("Cepheid Variable Period-Luminosity Relation Fitting", fontsize=14, fontweight='bold')
-ax.grid(True, linestyle="--", alpha=0.5)
-ax.legend(fontsize=10)
-
-st.pyplot(fig)
-
-# --- 7. 결과 분석 및 오차 도출 ---
-st.divider()
-st.subheader("📊 데이터 분석 결과 보고서")
-
-is_pop_correct = "Ⅱ족" in user_pop
-is_ext_correct = abs(user_extinction - 0.5) < 0.1
-is_dist_correct = abs(user_distance_kpc - 12.0) < 0.5
-
-out_col1, out_col2 = st.columns(2)
-
-with out_col1:
-    st.markdown("### 🔍 현재 모델 매칭 상태")
-    if is_pop_correct and is_ext_correct and is_dist_correct:
-        st.success("🎉 대단합니다! 금속 함량, 성간 소광, 거리를 모두 정확하게 보정하여 완벽한 모델을 찾았습니다!")
-    else:
-        st.warning("⚠️ 이론선이 데이터 점들의 중심을 관통하도록 슬라이더를 더 정밀하게 조절해 보세요.")
-        
-    st.write(f"• 설정된 별의 집단: **{user_pop.split(' ')[0]}**")
-    st.write(f"• 설정된 성간 소광량: **{user_extinction} 등급**")
-    st.write(f"• 계산된 은하의 거리: **{user_distance_kpc} kpc** (약 {user_distance_kpc * 3260:,.0f} 광년)")
-
-with out_col2:
-    st.markdown("### 🚨 오차 분석 (지구과학Ⅰ 탐구와의 연계)")
-    
-    if "Ⅰ족" in user_pop:
-        st.error("❗ [오차 원인 1] 실제보다 별을 '금속이 많은 젊은 별(Ⅰ족)'로 잘못 가정했습니다. 이 경우 별의 실제 절대등급(원래 밝기)을 너무 밝게 추정하게 되므로, 이론선에 맞추다 보면 은하의 거리가 실제(12.0kpc)보다 훨씬 멀리 있는 것으로 왜곡됩니다.")
-    
-    if user_extinction == 0.0:
-        st.error("❗ [오차 원인 2] 성간 소광(A=0)을 전혀 고려하지 않았습니다. 우주 공간의 티끌 때문에 별빛이 흐려진 것을 고려하지 않으면, 별이 단순히 '멀리 있어서 어두운 것'으로 착각하게 되어 은하의 거리가 실제보다 더 멀게 계산됩니다.")
-        
-    if is_pop_correct and is_ext_correct:
-        st.info("✅ **오차 보정 성공:** 금속 함량 오차와 성간 소광을 모두 올바르게 입력하니, 은하의 실제 거리인 **12.0 kpc** 부근에서 그래프가 완벽히 일치하는 것을 볼 수 있습니다. 이를 통해 표준 촛대를 이용한 거리 측정에서 '천체의 물리적 성질(금속 함량)'과 '성간 환경(소광)'을 모두 고려하는 것이 얼마나 중요한지 증명되었습니다.")
+ax.grid(True, linestyle="--
